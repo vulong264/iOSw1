@@ -14,11 +14,13 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var overviewLabel: UILabel!
     
+    @IBOutlet var scrollView: UIScrollView!
     var imgUrl = ""
     var overview = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        scrollView.contentSize = CGSize(width:350, height: 800)
         // Do any additional setup after loading the view.
         posterImage.setImageWith(NSURL(string: imgUrl) as! URL)
         overviewLabel.text = overview

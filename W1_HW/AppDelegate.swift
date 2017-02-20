@@ -12,10 +12,30 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let NOW_PLAYING = "now_playing"
+    let TOP_RATED = "top_rated"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let nowPlayingNavController = storyboard.instantiateViewController(withIdentifier: "MovieNavController") as! UINavigationController
+        let nowPlayingViewController = nowPlayingNavController.topViewController as! MoviesViewController
+        nowPlayingViewController.selectedEndPoint = NOW_PLAYING
+        nowPlayingNavController.tabBarItem.title = "Now Playing"
+        
+        let topRatedNavController = storyboard.instantiateViewController(withIdentifier: "MovieNavController") as! UINavigationController
+        let topRatedViewController = topRatedNavController.topViewController as! MoviesViewController
+        topRatedViewController.selectedEndPoint = TOP_RATED
+        topRatedNavController.tabBarItem.title = "Top Rated"
+        
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [nowPlayingNavController,topRatedNavController]
+        
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
         return true
     }
 
