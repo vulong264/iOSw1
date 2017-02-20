@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 
 class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -16,6 +17,12 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let posterBaseUrl = "http://image.tmdb.org/t/p/w500"
     var selectedUrl = ""
     var selectedOverview = ""
+    let NOW_PLAYING = "now_playing"
+    let TOP_RATED = "top_rated"
+    
+    @IBOutlet weak var networkErrView: UIView!
+    var selectedEndPoint = ""
+    var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +30,36 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        if Reachability.isConnectedToNetwork() == true
+        {
+            networkErrView.isHidden = true
+            print("Connected to network")
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+        }
+        else
+        {
+            networkErrView.isHidden = false
+            print("NOT Connected to network")
+        }
+        // Initialize a UIRefreshControl
+        selectedEndPoint = NOW_PLAYING
         
+        // set up the refresh control
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        self.tableView?.addSubview(refreshControl)
+        
+        loadData()
+    }
+    func refresh(sender:AnyObject) {
+        self.loadData()
+    }
+    // Makes a network request to get updated data
+    // Updates the tableView with the new data
+    // Hides the RefreshControl
+    func loadData() {
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = URL(string: "http://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let url = URL(string: "http://api.themoviedb.org/3/movie/"+selectedEndPoint+"?api_key=\(apiKey)")
         let request = URLRequest(
             url: url!,
             cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData,
@@ -35,9 +69,11 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             delegate: nil,
             delegateQueue: OperationQueue.main
         )
+        
         let task: URLSessionDataTask =
             session.dataTask(with: request,
                              completionHandler: { (dataOrNil, response, error) in
+                                MBProgressHUD.hide(for: self.view, animated: true)
                                 if let data = dataOrNil {
                                     if let responseDictionary = try! JSONSerialization.jsonObject(
                                         with: data, options:[]) as? NSDictionary {
@@ -45,13 +81,18 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                         print("response: \(responseDictionary)")
                                         
                                         self.tableView.reloadData()
+                                        // Tell the refreshControl to stop spinning
+                                        // tell refresh control it can stop showing up now
+                                        if self.refreshControl.isRefreshing
+                                        {
+                                            self.refreshControl.endRefreshing()
+                                        }
                                     }
                                 }
             })
         task.resume()
-        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

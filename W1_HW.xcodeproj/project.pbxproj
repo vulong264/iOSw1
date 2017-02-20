@@ -15,6 +15,7 @@
 		D9A817011E555150009B83ED /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A817001E555150009B83ED /* MoviesViewController.swift */; };
 		D9A817031E555731009B83ED /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A817021E555731009B83ED /* MovieCell.swift */; };
 		D9A817051E555DCF009B83ED /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A817041E555DCF009B83ED /* DetailsViewController.swift */; };
+		D9F42C9E1E5AA55400301A1D /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F42C9D1E5AA55400301A1D /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		D9A817001E555150009B83ED /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		D9A817021E555731009B83ED /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		D9A817041E555DCF009B83ED /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		D9F42C9D1E5AA55400301A1D /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				D9A817041E555DCF009B83ED /* DetailsViewController.swift */,
 				D9A817021E555731009B83ED /* MovieCell.swift */,
 				D9A817001E555150009B83ED /* MoviesViewController.swift */,
+				D9F42C9D1E5AA55400301A1D /* Reachability.swift */,
 				D9A816F51E554826009B83ED /* Assets.xcassets */,
 				D9A816F71E554826009B83ED /* LaunchScreen.storyboard */,
 				D9A816FA1E554826009B83ED /* Info.plist */,
@@ -221,6 +224,7 @@
 				D9A816EF1E554826009B83ED /* AppDelegate.swift in Sources */,
 				D9A817011E555150009B83ED /* MoviesViewController.swift in Sources */,
 				D9A817031E555731009B83ED /* MovieCell.swift in Sources */,
+				D9F42C9E1E5AA55400301A1D /* Reachability.swift in Sources */,
 				D9A817051E555DCF009B83ED /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

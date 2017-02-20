@@ -22,6 +22,8 @@ class DetailsViewController: UIViewController {
         // Do any additional setup after loading the view.
         posterImage.setImageWith(NSURL(string: imgUrl) as! URL)
         overviewLabel.text = overview
+        overviewLabel.sizeToFit()
+        
     }
 
     override func didReceiveMemoryWarning() {
